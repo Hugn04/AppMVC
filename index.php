@@ -2,6 +2,7 @@
     // $controllerPath = ucfirst(strtolower($_REQUEST["controller"]). "Controller");
     // require "./Controllers/${controllerPath}.php";
     session_start();
+    require("loadEnv.php");
     require("./Controllers/Controller.php");
     require("./Models/Model.php");
     require("./config.php");
