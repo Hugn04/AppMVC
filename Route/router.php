@@ -4,21 +4,30 @@
     // $method
     // route => [Controller, action, middleware]
     $get =[
-        "admin/editchapter"=>["AdminController", "index", "Level:admin"],
-        "admin/chapter"=>["AdminController", "index", "Level:admin"],
-        "admin"=>["AdminController", "index", "Level:admin"],
 
-        "Read"=>["SiteController", "read"],
         ""=>["SiteController", "index"],
-        "user"=>["UserController", "index", "Auth"],
-        "user/show"=>["UserController", "show"],
-        "login"=>["UserController", "loginView"],
-        "logout"=>["UserController", "logout"],
+
+
+        "admin"=>["AdminController", "index"],
+        "admin/chapter"=>["AdminController", "chapter"],
+        "admin/editchapter"=>["AdminController", "editchapter"],
+
+        
     ];  
     $post =[
-        
+
+
+
+        "admin"=>["AdminController", "newTale"],
+        "admin/delete"=>["AdminController", "deleteImg"],
+        "admin/sortImg"=>["AdminController", "sortImg"],
+        "admin/chapter"=>["AdminController", "newDelChapter"],
+        "admin/editchapter"=>["AdminController", "uploadImg"],
         "login"=>["UserController", "login"],
+
     ];
+
+
 
 
 
@@ -49,7 +58,8 @@
     require("./Controllers/".$nameController.".php");
     $data=[
         "params"=>$_GET,
-        "body"=>$_POST
+        "body"=>$_POST,
+        "files"=>$_FILES,
     ];
 
 
