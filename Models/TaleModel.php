@@ -10,6 +10,21 @@
             }
             return $table;
         }
+
+        public function getTruyenSerch($search){
+            $table = [];
+            $result = mysqli_query($this->conn, "SELECT * FROM Truyen WHERE ten_truyen LIKE '%".$search."%';");
+            while($row = mysqli_fetch_assoc($result)){
+                array_push($table, $row);
+            }
+            return $table;
+
+        }
+        public function getTruyenById($id){
+            $result = mysqli_query($this->conn, "SELECT * FROM Truyen where id='".$id."';");
+            $row = mysqli_fetch_assoc($result);
+            return $row;
+        }
         public function getChapterByid($id){
             $sql = "SELECT * FROM Chapter WHERE id_truyen = ".$id.";";
             $table = [];
@@ -28,18 +43,15 @@
                 $sql ="INSERT INTO Chapter (id_truyen, so_chapter, ten_chapter) VALUES (".$id.", ".$next.", 'Chapter 1.".$next."');";
                 mysqli_query($this->conn, $sql);
             }else{
+                
+                mysqli_query($this->conn, "DELETE FROM `anh` WHERE id_chapter = '1'");
                 mysqli_query($this->conn, "DELETE FROM Chapter WHERE id_truyen = ".$id." AND so_chapter = ".$numChapter.";");
             }
         }
-        public function getImgById($id, $chapter){
-            $table = [];
-            $sql = "SELECT * FROM `tale` WHERE taleID = '".$id."' and chapter = '".$chapter."';";
-            
-            $result = mysqli_query($this->conn, $sql);
-            while($row = mysqli_fetch_assoc($result)){
-                array_push($table,$row);
-            }
-            return $table;
+        public function getNumChapter($id){
+            $sql = "SELECT COUNT(*) AS so_chapter FROM Chapter WHERE id_truyen = ".$id.";";
+            $numchapter = mysqli_fetch_assoc(mysqli_query($this->conn, $sql))["so_chapter"];
+            return $numchapter;
         }
         public function newTale($ten_truyen, $url_img){
             $sql = "INSERT INTO `truyen`(`id`, `ten_truyen`, `anh_nen`) VALUES ('','".$ten_truyen."','".$url_img."')";
@@ -71,10 +83,6 @@
                 mysqli_query($this->conn, "UPDATE `anh` SET `so_thu_tu`=".($index + 1)." WHERE url_anh = '".$value["url_anh"]."'");
             }
         }
-
-
-        
-        
     }
     
 

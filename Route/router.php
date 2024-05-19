@@ -6,11 +6,14 @@
     $get =[
 
         ""=>["SiteController", "index"],
+        "trangchu"=>["SiteController", "index"],
 
+        "admin"=>["AdminController", "index", "Level:admin"],
+        "admin/chapter"=>["AdminController", "chapter", "Level:admin"],
+        "admin/editchapter"=>["AdminController", "editchapter", "Level:admin"],
+        "read"=>["SiteController", "read", "Auth"],
 
-        "admin"=>["AdminController", "index"],
-        "admin/chapter"=>["AdminController", "chapter"],
-        "admin/editchapter"=>["AdminController", "editchapter"],
+        "login"=>["UserController", "loginView"],
 
         
     ];  
@@ -18,11 +21,11 @@
 
 
 
-        "admin"=>["AdminController", "newTale"],
-        "admin/delete"=>["AdminController", "deleteImg"],
-        "admin/sortImg"=>["AdminController", "sortImg"],
-        "admin/chapter"=>["AdminController", "newDelChapter"],
-        "admin/editchapter"=>["AdminController", "uploadImg"],
+        "admin"=>["AdminController", "newTale", "Level:admin"],
+        "admin/delete"=>["AdminController", "deleteImg", "Level:admin"],
+        "admin/sortImg"=>["AdminController", "sortImg", "Level:admin"],
+        "admin/chapter"=>["AdminController", "newDelChapter", "Level:admin"],
+        "admin/editchapter"=>["AdminController", "uploadImg", "Level:admin"],
         "login"=>["UserController", "login"],
 
     ];
@@ -31,7 +34,7 @@
 
 
 
-
+    require("./Middleware/User.php");
     try {
         if(array_key_exists($uri, $$method)){
             $controller = $$method[$uri];

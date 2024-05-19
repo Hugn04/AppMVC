@@ -19,15 +19,15 @@
 			</div>
 		</div>
 		<div class="nav_searchbar">
-			<form action="">
-				<input type="text">
+			<form action="trangchu">
+				<input type="text" name="name">
 				<button>Tìm</button>
 			</form>
 		</div>
 		<div class="account">
 			<div class="info">
-				<h5 class="name">Hung</h5>
-				<img src="https://yt3.ggpht.com/yti/ANjgQV-Sbmn-P12VX7c_whemNkwPw6j_hmsu6giilNp00O1-MA=s88-c-k-c0x00ffffff-no-rj" alt="">
+				<h5 class="name"><?php echo User::get("name")?></h5>
+				<img src="<?php echo User::get("img")?>" alt="">
 			</div>
 			<!-- <a class="btn_login" href="">Login</a> -->
 		</div>
@@ -35,12 +35,13 @@
 	</nav>
 	<div class="container">
 		<div class="content">
+			
 			<div class="row">
 				<?php
 					foreach($tales as $item){
 						echo '<div class="col-sm-6">
 								<div class="card" style="background: url('.$item["anh_nen"].'); background-size: cover; background-repeat: no-repeat;">
-									<a href="">
+									<a href="./read?id_truyen='.$item["id"].'&chapter=1">
 										<div class="card-body" >
 											<h3>'.$item["ten_truyen"].'</h3>
 										</div>
@@ -50,7 +51,8 @@
 					}
 				
 				?>
-				<div class="col-sm-6">
+				
+				<!-- <div class="col-sm-6">
 					<div class="card">
 						<a href="">
 							<div class="card-body">
@@ -58,16 +60,7 @@
 							</div>
 						</a>
 					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="card">
-						<a href="">
-							<div class="card-body">
-								<h3>Title</h3>
-							</div>
-						</a>
-					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

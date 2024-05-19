@@ -8,7 +8,7 @@
         }
        
         public function loginView(){
-            return $this->view("login");
+            return $this->view("account.index");
         }
         public function logout(){
             unset($_COOKIE['PHPSESSID']);
@@ -19,15 +19,10 @@
         public function login($req){
             $user = $req["body"]["user"];
             $password = $req["body"]["password"];
-            if($user == "" or $password == ""){
-                return $this->view("login", [
-                    "err"=>"Không được để trông tên tài khoản hoặc mật khẩu !"
-                ]);
-            }
             if($this->userModel->verify($user, $password)){
                 return $this->redirect("/");
             }else{
-                return $this->view("login", [
+                return $this->view("account.index", [
                     "err"=>"Tài khoản hoặc mật khẩu không chính xác"
                 ]);
             }

@@ -115,10 +115,9 @@
         </div>
         <div class="account">
             <div class="info">
-                <h5 class="name">Hung</h5>
-                <img src="https://yt3.ggpht.com/yti/ANjgQV-Sbmn-P12VX7c_whemNkwPw6j_hmsu6giilNp00O1-MA=s88-c-k-c0x00ffffff-no-rj"
-                    alt="">
-            </div>
+                <h5 class="name"><?php echo User::get("name")?></h5>
+                <img src="<?php echo User::get("img")?>" alt="">
+			</div>
             <!-- <a class="btn_login" href="">Login</a> -->
         </div>
 
@@ -208,6 +207,7 @@
                     method:"POST",
                     data:{
                         action:element.getAttribute("action"),
+                      
                     }
                 }).then(()=>{
                     location.reload()

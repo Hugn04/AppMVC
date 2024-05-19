@@ -11,7 +11,7 @@
             return $table;
         }
         public function verify($userName, $password){
-            $result = mysqli_query($this->conn, "select * from user where user = '".$userName."'");
+            $result = mysqli_query($this->conn, "select * from users where user = '".$userName."'");
             if($row = mysqli_fetch_assoc($result)){
                 if(password_verify($password, $row["password"])){
                     
@@ -23,7 +23,7 @@
 
         }
         public function hasRole($role){
-            $result = mysqli_query($this->conn, "select * from user where user = '".$_SESSION["user"]."'");
+            $result = mysqli_query($this->conn, "select * from users where user = '".$_SESSION["user"]."'");
             if($row = mysqli_fetch_assoc($result)){
                 if($row["role"]==$role){
                     return true;

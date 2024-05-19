@@ -44,6 +44,9 @@
             return;
                 
         }
+        public function deleteChapter($id_truyen, $chapter){
+            $chaptersql = "(SELECT id FROM Chapter WHERE id_truyen = ".$id_truyen." AND so_chapter = ".$chapter.")";
+        }
         function delete($publicId) {
             try {
                 $result = \Cloudinary\Uploader::destroy($publicId);
