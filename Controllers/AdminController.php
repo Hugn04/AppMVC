@@ -29,7 +29,7 @@
         public function newTale($req){
             $ten_truyen = $req["body"]["ten_truyen"];
             $url_img = "https://th.bing.com/th?id=OIP.G85MhuE2u1HGbMl1kiY18QHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.4&pid=3.1&rm=2";
-            $tales = $this->taleModel->newTale($ten_truyen, $url_img);
+            $this->taleModel->newTale($ten_truyen, $url_img);
             return $this->redirect("/admin");
         }
 

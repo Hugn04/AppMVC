@@ -43,7 +43,6 @@
         }
         public function newTale($ten_truyen, $url_img){
             $sql = "INSERT INTO `truyen`(`id`, `ten_truyen`, `anh_nen`) VALUES ('','".$ten_truyen."','".$url_img."')";
-            
             mysqli_query($this->conn, $sql);
            
         }
