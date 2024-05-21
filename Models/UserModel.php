@@ -31,6 +31,22 @@
             }
             return false;
         }
+
+        public function isNullUser($user){
+            $sql = "select * from users where user = '".$user."'";
+            $result = mysqli_query($this->conn, $sql);
+            if($row = mysqli_fetch_assoc($result)){
+                return false;
+            }
+            return true;
+        }
+        public function newAccount($name, $user, $password){
+            $img = "https://i.pinimg.com/736x/13/cf/c4/13cfc47308e92f7a89be1a034650fa50.jpg";
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO `users`(`user`, `password`, `role`, `img`, `name`) VALUES ('".$user."','".$password."','person','".$img."','".$name."')";
+            mysqli_query($this->conn, $sql);
+            
+        }
         
     }
     

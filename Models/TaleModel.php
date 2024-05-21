@@ -34,20 +34,31 @@
             }
             return $table;
         }
-        public function HandelChapterById($id, $action){
-            $sql1 = "SELECT COUNT(*) AS so_chapter FROM Chapter WHERE id_truyen = ".$id.";";
-            $result = mysqli_query($this->conn, $sql1);
-            $numChapter = mysqli_fetch_assoc($result)["so_chapter"];
-            if($action == "new"){
-                $next = $numChapter  + 1;
-                $sql ="INSERT INTO Chapter (id_truyen, so_chapter, ten_chapter) VALUES (".$id.", ".$next.", 'Chapter 1.".$next."');";
-                mysqli_query($this->conn, $sql);
-            }else{
-                
-                mysqli_query($this->conn, "DELETE FROM `anh` WHERE id_chapter = '1'");
-                mysqli_query($this->conn, "DELETE FROM Chapter WHERE id_truyen = ".$id." AND so_chapter = ".$numChapter.";");
-            }
+
+        public function getChapterId($id_truyen, $chapter){
+            $sql = "(SELECT id FROM Chapter WHERE id_truyen = ".$id_truyen." AND so_chapter = ".$chapter.")";
+            $idChapter = mysqli_fetch_assoc(mysqli_query($this->conn, $sql))["id"];
+            
+            return $idChapter;
         }
+
+        public function deleteChapter($id_truyen, $chapter){
+            $idChapter = $this->getChapterId($id_truyen, $chapter);
+            mysqli_query($this->conn, "DELETE FROM `anh` WHERE id_chapter = '".$idChapter."'");
+            mysqli_query($this->conn, "DELETE FROM Chapter WHERE id='".$idChapter."'");
+            
+        }
+        public function newChapter($id){
+            $numChapter = $this->getNumChapter($id);
+            $next = $numChapter  + 1;
+            $sql ="INSERT INTO Chapter (id_truyen, so_chapter, ten_chapter) VALUES (".$id.", ".$next.", 'Chapter 1.".$next."');";
+            mysqli_query($this->conn, $sql);
+        }
+        public function deleteTale($id_truyen){
+            $sql ="DELETE FROM `truyen` WHERE id = '".$id_truyen."'";
+            mysqli_query($this->conn, $sql);
+        }
+
         public function getNumChapter($id){
             $sql = "SELECT COUNT(*) AS so_chapter FROM Chapter WHERE id_truyen = ".$id.";";
             $numchapter = mysqli_fetch_assoc(mysqli_query($this->conn, $sql))["so_chapter"];
@@ -56,8 +67,8 @@
         public function newTale($ten_truyen, $url_img){
             $sql = "INSERT INTO `truyen`(`id`, `ten_truyen`, `anh_nen`) VALUES ('','".$ten_truyen."','".$url_img."')";
             mysqli_query($this->conn, $sql);
-           
         }
+        
 
         public function getImgUrl($id_truyen, $chapter){
             $table = [];

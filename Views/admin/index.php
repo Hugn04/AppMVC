@@ -4,13 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="https://hungcoi2x.glitch.me/trangchu.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .card-body {
             width: 100%;
@@ -94,6 +89,23 @@
             border: none;
             border-radius: 20px;
         }
+        .wraper{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99;
+            backdrop-filter: blur(300px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            
+            
+        }
+        .wraper.active{
+            display: flex;
+        }
     </style>
 </head>
 
@@ -108,20 +120,36 @@
         </div>
         <div class="nav_searchbar">
             <form action="">
-                <input type="text">
+                <input name="name" type="text">
                 <button>Tìm</button>
             </form>
         </div>
         <div class="account">
             <div class="info">
-                <h5 class="name"><?php echo User::get("name")?></h5>
-                <img src="<?php echo User::get("img")?>" alt="">
+                <?php
+                    echo '<div class="info">
+                    <h5 class="name">'.User::get("name").'</h5>
+                    <div class="dropdown">
+                        <img id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" src="'.User::get("img").'" alt="">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="logout">Đăng Xuất</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>';
+                ?>
             </div>
             <!-- <a class="btn_login" href="">Login</a> -->
         </div>
 
     </nav>
     <div class="container">
+        <div class="wraper">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div style="margin-left: 10px;">Đang tải ....</div>
+        </div>
         <div class="content">
             <div class="row">
                 <?php
@@ -132,7 +160,7 @@
                                         <h3>'.$item["ten_truyen"].'</h3>
                                         <div class="group_button">
                                             <a href="admin/chapter?id_truyen='.$item["id"].'" class="btn_edit"><i class="fa-solid fa-xl fa-pen-to-square"></i></a>
-                                            <a href="" class="btn_edit"><i class="fa-solid fa-xl fa-trash-can"
+                                            <a href="#" class="btn_edit"><i data-bs-toggle="modal" data-bs-target="#delete_truyen" data-bs-id="'.$item["id"].'" class="fa-solid fa-xl fa-trash-can"
                                                     style="color: #ff0040;"></i></a>
                                         </div>
                                     </div>
@@ -166,7 +194,7 @@
         </div>
         <div class="add_popup">
             <div class="form">
-                <form action="" method="POST">
+                <form action="" method="post" enctype="multipart/form-data">
                     <h2>Thêm Truyện</h2>
                     <div class="form-group">
                         <input type="text" id="fname" name="ten_truyen" placeholder="Tên truyện">
@@ -174,14 +202,47 @@
                     <div class="form-group">
                         <input type="file" id="fname" name="file" placeholder="Chọn ảnh nền">
                     </div>
-                    <input type="submit" value="Thêm">
+                    <input id="addTale" type="submit" value="Thêm">
                 </form>
                 <button class="btn_close">X</button>
             </div>
         </div>
     </div>
+    
+    <div class="modal fade" id="delete_truyen" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cảnh báo !</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa truyện này không ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="dimiss_model" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" id="accecpt_delete" class="btn btn-primary">Chấp nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    
     <script>
+        document.querySelector("#addTale").onclick = function(){
+            $(".wraper").toggleClass("active")
+        }
+        var id;
+        var deleteModel = document.getElementById('delete_truyen')
+        deleteModel.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var recipient = button.getAttribute('data-bs-id')
+            id=recipient
+            console.log(id)
+        })
         function popup(btnOpen, btnClose, popUp, clss="active"){
             btnClose.onclick = function(){
                 popUp.classList.remove(clss)
@@ -194,6 +255,18 @@
         var popUp = document.querySelector(".add_popup")
         var btnClose = document.querySelector(".btn_close")
         popup(btnOpen, btnClose, popUp)
+
+        document.querySelector("#accecpt_delete").onclick =function(){
+                $("#dimiss_model").click()
+                $(".wraper").toggleClass("active")
+                $.ajax({
+                    url: `?id_truyen=${id}`,
+                    method: "DELETE",
+                    data: {}
+                }).then((data) => {
+                    location.reload()
+                })
+        }
 
     </script>
 </body>

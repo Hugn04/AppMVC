@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>My Login Page</title>
+	<title>Đăng nhập</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="https://hungcoi2x.glitch.me/my-login.css">
 </head>
@@ -15,7 +15,7 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="https://cdn.glitch.global/969d2f02-48c6-492c-bf61-365664d844f6/logo.jpg?v=1716116586154" alt="logo">
+						<a href="./"><img src="https://cdn.glitch.global/969d2f02-48c6-492c-bf61-365664d844f6/logo.jpg?v=1716116586154" alt="bootstrap 4 login page"></a>
 					</div>
 					<div class="card fat">
 						<div class="card-body">
@@ -34,9 +34,7 @@
 
 								<div class="form-group">
 									<label for="password">Mật khẩu
-										<a href="forgot.html" class="float-right">
-											Quên mật khẩu
-										</a>
+										
 									</label>
 									<input id="password" type="password" class="form-control" name="password" required data-eye>
 								    <div class="invalid-feedback">
@@ -57,7 +55,7 @@
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Bạn chưa có tài khoản? <a href="register.html">Tạo ngay</a>
+									Bạn chưa có tài khoản? <a href="register">Tạo ngay</a>
 								</div>
 							</form>
 						</div>

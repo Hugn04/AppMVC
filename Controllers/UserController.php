@@ -26,9 +26,28 @@
                     "err"=>"Tài khoản hoặc mật khẩu không chính xác"
                 ]);
             }
+        }
+        public function register(){
+            return $this->view("account.register");
+        }
+        public function registerNew($req){
+            $data = $req["body"];
+            $name = $data["name"];
+            $user = $data["user"];
+            $password = $data["password"];
+            if($this->userModel->isNullUser($user)){
+                $this->userModel->newAccount($name, $user, $password);
+                return $this->redirect("/");
+            }else{
+                return $this->view("account.register", [
+                    "err"=>"Tài khoản này đã được đăng ký",
+                ]);
+            }
+
 
             
         }
+        
     }
 
 ?>

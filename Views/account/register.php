@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<title>Đăng ký</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="https://hungcoi2x.glitch.me/my-login.css">
 </head>
@@ -14,59 +14,63 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="https://cdn.glitch.global/969d2f02-48c6-492c-bf61-365664d844f6/logo.jpg?v=1716116586154" alt="bootstrap 4 login page">
+						<a href="./"><img src="https://cdn.glitch.global/969d2f02-48c6-492c-bf61-365664d844f6/logo.jpg?v=1716116586154" alt="bootstrap 4 login page"></a>
 					</div>
 					<div class="card fat">
 						<div class="card-body">
-							<h4 class="card-title">Register</h4>
-							<form method="POST" class="my-login-validation" novalidate="">
+							<h4 class="card-title">Đăng ký tài khoản</h4>
+							<div style="color: red;">
+								<?php if(isset($err)){echo $err;}?>
+							</div>
+							<form method="POST" action="" class="my-login-validation" novalidate="">
 								<div class="form-group">
-									<label for="name">Name</label>
+									<label for="name">Tên người dùng</label>
 									<input id="name" type="text" class="form-control" name="name" required autofocus>
 									<div class="invalid-feedback">
-										What's your name?
+										Vui lòng điền tên của bạn
 									</div>
 								</div>
+								
 
 								<div class="form-group">
-									<label for="email">E-Mail Address</label>
-									<input id="email" type="email" class="form-control" name="email" required>
+									<label for="user">Tên tài khoản</label>
+									<input id="email" type="text" class="form-control" name="user" required>
 									<div class="invalid-feedback">
-										Your email is invalid
+										Bắt buộc nhập tên tài khoản
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="password">Password</label>
+									<label for="password">Mật khẩu</label>
 									<input id="password" type="password" class="form-control" name="password" required data-eye>
 									<div class="invalid-feedback">
-										Password is required
+										Mật khẩu không được để trống
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="custom-checkbox custom-control">
 										<input type="checkbox" name="agree" id="agree" class="custom-control-input" required="">
-										<label for="agree" class="custom-control-label">I agree to the <a href="#">Terms and Conditions</a></label>
+										<label for="agree" class="custom-control-label">Tôi đồng ý với <a href="#">Điều khoản và Điều kiện</a></label>
 										<div class="invalid-feedback">
-											You must agree with our Terms and Conditions
+											Bạn phải đồng ý các điều khoản và điều kiện
 										</div>
 									</div>
 								</div>
 
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary btn-block">
-										Register
+										Đăng ký
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Already have an account? <a href="index.html">Login</a>
+									Bạn đã có tài khoản ? <a href="login">Đăng Nhập</a>
 								</div>
 							</form>
 						</div>
 					</div>
 					<div class="footer">
-						Copyright &copy; 2017 &mdash; Your Company 
+						Hugn
 					</div>
 				</div>
 			</div>

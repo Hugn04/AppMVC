@@ -14,7 +14,8 @@
         "read"=>["SiteController", "read", "Auth"],
 
         "login"=>["UserController", "loginView"],
-
+        "logout"=>["UserController", "logout"],
+        "register"=>["UserController", "register"],
         
     ];  
     $post =[
@@ -24,10 +25,16 @@
         "admin"=>["AdminController", "newTale", "Level:admin"],
         "admin/delete"=>["AdminController", "deleteImg", "Level:admin"],
         "admin/sortImg"=>["AdminController", "sortImg", "Level:admin"],
-        "admin/chapter"=>["AdminController", "newDelChapter", "Level:admin"],
+        "admin/chapter"=>["AdminController", "newChapter", "Level:admin"],
         "admin/editchapter"=>["AdminController", "uploadImg", "Level:admin"],
         "login"=>["UserController", "login"],
+        "register"=>["UserController", "registerNew"],
+        
 
+    ];
+    $delete = [
+        "admin/chapter"=>["AdminController", "deleteChapter", "Level:admin"],
+        "admin"=>["AdminController", "deleteTale", "Level:admin"],
     ];
 
 
@@ -59,6 +66,7 @@
         $middleware = new $middleName($param);
     }
     require("./Controllers/".$nameController.".php");
+    
     $data=[
         "params"=>$_GET,
         "body"=>$_POST,

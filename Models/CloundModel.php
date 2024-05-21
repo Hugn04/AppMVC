@@ -44,6 +44,19 @@
             return;
                 
         }
+        public function deleteListImg($url_imgs){
+            foreach($url_imgs as $item){
+                $id = $this->getIdImgByUrl($item["url_anh"]);
+                $this->delete($id);
+                echo "----".$id;
+            }
+        }
+
+        public function getIdImgByUrl($url_img){
+            $url_img = explode("/", $url_img);
+            $id_img = substr($url_img[count($url_img)-1], 0, -4);
+            return $id_img;
+        }
         public function deleteChapter($id_truyen, $chapter){
             $chaptersql = "(SELECT id FROM Chapter WHERE id_truyen = ".$id_truyen." AND so_chapter = ".$chapter.")";
         }

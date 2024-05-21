@@ -4,13 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin - Sửa Chapter</title>
     <link rel="stylesheet" href="https://hungcoi2x.glitch.me/trangchu.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @media screen and (max-width: 800px) {
             .container{
@@ -47,6 +42,23 @@
         #form fieldset input{
             width: 250px;
         }
+        .wraper{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99;
+            backdrop-filter: blur(300px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            
+            
+        }
+        .wraper.active{
+            display: flex;
+        }
     </style>
 </head>
 
@@ -61,14 +73,29 @@
         </div>
         <div class="account">
             <div class="info">
-                <h5 class="name"><?php echo User::get("name")?></h5>
-                <img src="<?php echo User::get("img")?>" alt="">
+                <?php
+                    echo '<div class="info">
+                    <h5 class="name">'.User::get("name").'</h5>
+                    <div class="dropdown">
+                        <img id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" src="'.User::get("img").'" alt="">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="logout">Đăng Xuất</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>';
+                ?>
             </div>
-            <!-- <a class="btn_login" href="">Login</a> -->
         </div>
 
     </nav>
     <div class="container">
+        <div class="wraper">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div style="margin-left: 10px;">Đang tải ....</div>
+        </div>
         <div class="content">
             <div class="list_img" id="sortable-list">
                 <?php
@@ -91,9 +118,9 @@
             <form id="form" action="" method="post" enctype="multipart/form-data">
                 <label for="lname">Thêm ảnh</label><br>
                 <fieldset>
-                <input type="file" name="files[]" multiple="multiple"/>
+                <input id="input_files" type="file" name="files[]" multiple="multiple"/>
                 </fieldset>
-                <input type="submit" name="upload" value="Upload" />
+                <input type="submit" name="upload" value="Upload" disabled/>
             </form>
             <br>
             <button class="save">Lưu thứ tự ảnh</button>
@@ -103,8 +130,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        document.querySelector("#form input[type='submit']").onclick =function(){
+            $(".wraper").toggleClass("active")
+        }
+        var input_files =document.querySelector("#input_files")
+        input_files.onchange =function(){
+            
+            if(this.files.length > 0){
+                document.querySelector("#form input[type='submit']").removeAttribute("disabled");
+            }else{
+                document.querySelector("#form input[type='submit']").setAttribute("disabled", "");
+            }
+            
+        }
         
+
         document.querySelector(".save").onclick =function(){
+            $(".wraper").toggleClass("active")
             var imgs =document.querySelectorAll(".img img")
             anhs = []
             imgs.forEach(function(element){
@@ -127,28 +169,6 @@
             ghostClass: 'sortable-ghost',
         });
         
-        document.querySelector(".list_img").onclick = function(){
-            console.log("A")
-        }
-
-
-        function change(element){
-            element.onclick = function(){
-                console.log("123")
-                $.ajax({
-                    url:"",
-                    method:"POST",
-                    data:{
-                        action:element.getAttribute("action"),
-                    }
-                }).then(()=>{
-                    location.reload()
-                })
-            }
-        }
-        
-        
-
         function getID(url){
             temp =  url.split("/")
             id = temp[temp.length-1].split(".")[0]
@@ -161,6 +181,7 @@
             var target = e.target
             if(target.classList[0]=="btn_del"){
                 link = target.parentElement.parentElement.querySelector("img").getAttribute("src")
+                $(".wraper").toggleClass("active")
                 $.ajax({
                     method:"POST",
                     url:"delete",
