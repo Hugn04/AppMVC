@@ -10,7 +10,7 @@
     $method = $_SERVER['REQUEST_METHOD'];
     $method = strtolower($method);
     $uri = $_SERVER['REQUEST_URI'];
-    $uri = str_replace('/AppMVC/', '', $uri);
+    $uri = str_replace('/DocTruyen/', '', $uri);
     if(strpos($uri, "?")){
         $uri = substr($uri, 0, strpos($uri, "?"));
     }
